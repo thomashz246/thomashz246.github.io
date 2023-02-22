@@ -1,12 +1,12 @@
 ---
-title: "Rock music"
+title: "Analysis of rock music over time (1962 - 2009)"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: fill
-    storyboard: true
+    storyboard: false
 ---
-```{r}
+```{r setup, include=FALSE}
 library(tidyverse)
 library(spotifyr)
 library(ggplot2)
@@ -31,12 +31,18 @@ songs_with_decade <- rock_corpus %>%
   mutate(duration_min = track.duration_ms / 60000) %>%
   filter(decade != 2010)
 
-plot <- ggplot(songs_with_decade, aes(x = year, y = duration_min)) + geom_point() + scale_y_log10() + geom_smooth(method = "lm", formula = y ~ poly(x, 4), se = FALSE) + xlab("Year") + ylab("Track duration (minutes)") + ggtitle("Track duration in rock music per year (1962 - 2009)")
+# Plot allocated to variable
+track_duration_plot <- ggplot(songs_with_decade, aes(x = year, y = duration_min)) + geom_point() + scale_y_log10() + geom_smooth(method = "lm", formula = y ~ poly(x, 4), se = FALSE) + xlab("Year") + ylab("Track duration (minutes)") + ggtitle("Track duration in rock music per year (1962 - 2009)")
 ```
 
-# Analysis of rock music over time (1962 - 2009)
+Introduction
+===============================================
 
-### Introduction and setup of corpus analysis
+
+Column
+-----------------------------------------------------
+
+### Setup of corpus analysis
 
 #### How has rock music changed over time?
 
@@ -50,12 +56,26 @@ The corpus for this portfolio will be a selection of popular rock songs from eac
 
 It is expected that there will be differences between each decade in terms of musical styles, instrumentation, and production techniques, but some similarities may also be present. For example, the use of guitar, bass, and drums as the core instruments in rock music has remained consistent throughout the years. This portfolio aims to explore the changes over time and provide a comprehensive overview of the history of rock music.
 
-##### Trend in track duration
+Track duration {data-navmenu=Visualization}
+==================================================
 
-The included plot displays the duration of 432 rock music tracks released over the period 1960 - 2010, with the x-axis indicating the year of release and the y-axis the track duration The plot also includes a trend line that shows a peak in 1982. Upon analyzing the plot, we can observe that there is a trend towards shorter song durations. If this trend continues, songs may become increasingly shorter in the future. It would be interesting to include more recent songs to see if this trend is still consistent with current rock music releases. This plot has significant implications for the music industry, as it highlights the evolving preferences of listeners towards shorter tracks. As such, it could be useful for music producers and artists in determining the optimal length of their tracks.
+### {data-width=300}
 
-### Second tab
+#### Trend in track duration
+This plot displays the duration of 432 rock music tracks released over the period 1960 - 2010, with the x-axis indicating the year of release and the y-axis the track duration The plot also includes a trend line that shows a peak in 1982. Upon analyzing the plot, we can observe that there is a trend towards shorter song durations. If this trend continues, songs may become increasingly shorter in the future. It would be interesting to include more recent songs to see if this trend is still consistent with current rock music releases. This plot has significant implications for the music industry, as it highlights the evolving preferences of listeners towards shorter tracks. As such, it could be useful for music producers and artists in determining the optimal length of their tracks.
+
+### {data-width=700}
 ```{r}
-ggplotly(plot)
+ggplotly(track_duration_plot)
 ```
 
+Change in valence {data-navmenu=Visualization}
+==================================================
+
+
+Conclusion
+==================================================
+
+
+Discussion
+==================================================
